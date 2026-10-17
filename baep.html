@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BillBox MVP Prototype</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body id="app-body" class="min-h-screen bg-slate-50 text-slate-800 transition-colors duration-500 p-4 md:p-8 flex flex-col items-center">
+
+  <div class="w-full max-w-xl space-y-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center text-xs tracking-wider font-semibold text-slate-400 uppercase">
+      <span>Illustrative BillBox Experience</span>
+      <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+    </div>
+
+    <!-- Main Card -->
+    <div id="status-card" class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 transition-all duration-500">
+      <h1 class="text-2xl font-bold text-slate-900 mb-6">Your Financial Plans</h1>
+
+      <!-- Input Section: Available & Goal -->
+      <div class="grid grid-cols-2 gap-4 pb-6 border-b border-slate-100">
+        <div>
+          <label class="block text-xs font-medium text-slate-500 mb-1">Available to allocate</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-xl font-bold text-slate-400">$</span>
+            <input type="number" id="input-available" value="400" step="10"
+                   class="w-full pl-8 pr-3 py-1.5 text-2xl font-bold text-slate-900 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-500 mb-1">Travel plan (Goal)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-xl font-bold text-slate-400">$</span>
+            <input type="number" id="input-goal" value="250" step="10"
+                   class="w-full pl-8 pr-3 py-1.5 text-2xl font-bold text-slate-900 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900">
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider Simulation -->
+      <div class="mt-6">
+        <div class="flex justify-between items-baseline mb-3">
+          <span class="text-lg font-semibold text-slate-900">What if I buy something?</span>
+          <span id="spend-display" class="text-3xl font-extrabold text-slate-900">$100</span>
+        </div>
+        
+        <input type="range" id="spend-slider" min="0" max="600" value="100" step="5"
+               class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900">
+        <div class="flex justify-between text-xs text-slate-400 mt-1">
+          <span>$0</span>
+          <span>$300</span>
+          <span>$600+</span>
+        </div>
+      </div>
+
+      <!-- Impact Status Indicators -->
+      <div class="mt-8 space-y-3 pt-6 border-t border-slate-100">
+        <div class="flex justify-between items-center text-sm font-medium">
+          <span class="text-slate-600">Upcoming bills</span>
+          <span id="badge-bills" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+            ✓ Protected
+          </span>
+        </div>
+        <div class="flex justify-between items-center text-sm font-medium">
+          <span class="text-slate-600">Travel goal</span>
+          <span id="badge-goal" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+            On track
+          </span>
+        </div>
+      </div>
+
+      <!-- Dynamic Explanation Text -->
+      <div id="dynamic-message" class="mt-6 p-4 rounded-2xl text-sm leading-relaxed transition-colors duration-500 bg-emerald-50 text-emerald-950 border border-emerald-200">
+        You can make this purchase and still set aside the full $250 for your trip. You would have $50 left for other optional spending.
+      </div>
+    </div>
+
+    <!-- MVP Feedback Collection (Step 4 & 5 Validation) -->
+    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+      <h2 class="text-base font-bold text-slate-900">Would You Use BillBox?</h2>
+      <p class="text-xs text-slate-500 mb-4">You've tried our early prototype. What would you genuinely like to do next?</p>
+      
+      <div class="space-y-2 text-sm">
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+          <input type="radio" name="intent" class="mt-1 accent-slate-900">
+          <div>
+            <span class="font-medium text-slate-800">Keep my current method</span>
+            <p class="text-xs text-slate-500">I don't need BillBox right now.</p>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+          <input type="radio" name="intent" class="mt-1 accent-slate-900" checked>
+          <div>
+            <span class="font-medium text-slate-800">Join the free pilot</span>
+            <p class="text-xs text-slate-500">I'd like to try an early version when available.</p>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer">
+          <input type="radio" name="intent" class="mt-1 accent-slate-900">
+          <div>
+            <span class="font-medium text-slate-800">Express interest in a $3/month plan</span>
+            <p class="text-xs text-slate-500">I'd consider subscribing if the completed product delivers this value.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const availableInput = document.getElementById('input-available');
+    const goalInput = document.getElementById('input-goal');
+    const spendSlider = document.getElementById('spend-slider');
+    const spendDisplay = document.getElementById('spend-display');
+    const badgeBills = document.getElementById('badge-bills');
+    const badgeGoal = document.getElementById('badge-goal');
+    const dynamicMsg = document.getElementById('dynamic-message');
+    const appBody = document.getElementById('app-body');
+    const statusCard = document.getElementById('status-card');
+
+    function calculateImpact() {
+      const available = parseFloat(availableInput.value) || 0;
+      const goal = parseFloat(goalInput.value) || 0;
+      const spend = parseFloat(spendSlider.value) || 0;
+
+      spendDisplay.textContent = `$${spend}`;
+      const remaining = available - spend;
+
+      // 3段階の判定ロジック
+      if (remaining >= goal) {
+        // GREEN: 安全 (ゴールも請求書も100%守れる)
+        const leftover = remaining - goal;
+        appBody.className = "min-h-screen bg-emerald-50/60 text-slate-800 transition-colors duration-500 p-4 md:p-8 flex flex-col items-center";
+        statusCard.className = "bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-emerald-300 transition-all duration-500";
+        badgeBills.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800";
+        badgeBills.textContent = "✓ Protected";
+        badgeGoal.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800";
+        badgeGoal.textContent = "On track";
+
+        dynamicMsg.className = "mt-6 p-4 rounded-2xl text-sm leading-relaxed transition-colors duration-500 bg-emerald-50 text-emerald-950 border border-emerald-200";
+        dynamicMsg.textContent = `You can make this purchase and still set aside the full $${goal} for your trip. You would have $${leftover} left for other optional spending.`;
+
+      } else if (remaining >= 0 && remaining < goal) {
+        // YELLOW: 要検討 (請求書はOKだが、目標額が削られる)
+        const shortage = goal - remaining;
+        appBody.className = "min-h-screen bg-amber-50/70 text-slate-800 transition-colors duration-500 p-4 md:p-8 flex flex-col items-center";
+        statusCard.className = "bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-amber-300 transition-all duration-500";
+        badgeBills.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800";
+        badgeBills.textContent = "✓ Protected";
+        badgeGoal.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900";
+        badgeGoal.textContent = `$${shortage} short`;
+
+        dynamicMsg.className = "mt-6 p-4 rounded-2xl text-sm leading-relaxed transition-colors duration-500 bg-amber-50 text-amber-950 border border-amber-200";
+        dynamicMsg.textContent = `You can make this purchase without affecting your bills, but your planned $${goal} trip allocation would be short by $${shortage}. You could adjust the purchase or your travel plan.`;
+
+      } else {
+        // RED: 危険 (Availableを超過し、生活防衛・請求書が払えなくなる)
+        const overBudget = Math.abs(remaining);
+        appBody.className = "min-h-screen bg-rose-50/80 text-slate-800 transition-colors duration-500 p-4 md:p-8 flex flex-col items-center";
+        statusCard.className = "bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-rose-300 transition-all duration-500";
+        badgeBills.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800";
+        badgeBills.textContent = `⚠ At Risk ($${overBudget} over)`;
+        badgeGoal.className = "px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800";
+        badgeGoal.textContent = "Unfunded";
+
+        dynamicMsg.className = "mt-6 p-4 rounded-2xl text-sm leading-relaxed transition-colors duration-500 bg-rose-50 text-rose-950 border border-rose-200";
+        dynamicMsg.textContent = `Warning: This purchase exceeds your available spending money by $${overBudget}. Making this purchase puts upcoming essential bills at risk.`;
+      }
+    }
+
+    spendSlider.addEventListener('input', calculateImpact);
+    availableInput.addEventListener('input', calculateImpact);
+    goalInput.addEventListener('input', calculateImpact);
+
+    calculateImpact();
+  </script>
+</body>
+</html>
